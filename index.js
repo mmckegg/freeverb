@@ -9,7 +9,11 @@ module.exports = Freeverb
 
 function Freeverb(audioContext) {
   var node = audioContext.createGain()
+  node.channelCountMode = 'explicit'
+  node.channelCount = 2
+
   var output = audioContext.createGain()
+  var merger = audioContext.createChannelMerger(2)
   var splitter = audioContext.createChannelSplitter(2)
 
   var wet = audioContext.createGain()
@@ -17,8 +21,9 @@ function Freeverb(audioContext) {
 
   node.connect(dry)
   node.connect(wet)
-  dry.connect(output)
   wet.connect(splitter)
+  merger.connect(output)
+  dry.connect(output)
 
   var combFilters = []
   var allpassFiltersL = []
@@ -50,6 +55,9 @@ function Freeverb(audioContext) {
     }
   }
 
+  allpassFiltersL[allpassFiltersL.length-1].connect(merger, 0, 0)
+  allpassFiltersR[allpassFiltersR.length-1].connect(merger, 0, 1)
+
   //make the comb filters
   for (var c = 0; c < combFilterTunings.length; c++){
     var lfpf = LowpassCombFilter(audioContext)
@@ -57,7 +65,6 @@ function Freeverb(audioContext) {
     if (c < combFilterTunings.length / 2){
       splitter.connect(lfpf, 0)
       lfpf.connect(allpassFiltersL[0])
-      lfpf.connect(audioContext.destination)
     } else {
       splitter.connect(lfpf, 1)
       lfpf.connect(allpassFiltersR[0])
