@@ -15,6 +15,9 @@ function Freeverb(audioContext) {
   var output = audioContext.createGain()
   var merger = audioContext.createChannelMerger(2)
   var splitter = audioContext.createChannelSplitter(2)
+  var highpass = audioContext.createBiquadFilter()
+  highpass.type = 'highpass'
+  highpass.frequency.value = 200
 
   var wet = audioContext.createGain()
   var dry = audioContext.createGain()
@@ -22,7 +25,8 @@ function Freeverb(audioContext) {
   node.connect(dry)
   node.connect(wet)
   wet.connect(splitter)
-  merger.connect(output)
+  merger.connect(highpass)
+  highpass.connect(output)
   dry.connect(output)
 
   var combFilters = []
