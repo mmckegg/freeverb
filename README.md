@@ -37,6 +37,10 @@ A value between `0` and `20000` (in Hertz).
 
 ### `reverb.disconnect()`
 
+## License
+
+MIT
+
 ## Example
 
 ```js
