@@ -1,6 +1,6 @@
 {
   "name": "freeverb",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A Web Audio implementation of freeverb (Schroeder Reverberator)",
   "main": "index.js",
   "scripts": {
