@@ -1,0 +1,28 @@
+{
+  "name": "freeverb",
+  "version": "0.0.0",
+  "description": "A Web Audio implementation of freeverb (Schroeder Reverberator)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmckegg/freeverb.git"
+  },
+  "keywords": [
+    "reverb",
+    "fast",
+    "waapi",
+    "web",
+    "audio",
+    "dsp",
+    "browser"
+  ],
+  "author": "Matt McKegg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmckegg/freeverb/issues"
+  },
+  "homepage": "https://github.com/mmckegg/freeverb"
+}
