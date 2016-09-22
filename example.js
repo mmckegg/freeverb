@@ -1,11 +1,11 @@
 var Freeverb = require('./')
 
-var audioContext = new AudioContext()
+var audioContext = new window.AudioContext()
 var osc = audioContext.createOscillator()
 
 osc.type = 'sawtooth'
-osc.start(audioContext.currentTime+0.1)
-osc.stop(audioContext.currentTime+0.4)
+osc.start(audioContext.currentTime + 0.1)
+osc.stop(audioContext.currentTime + 0.4)
 
 var reverb = Freeverb(audioContext)
 reverb.roomSize = 0.9

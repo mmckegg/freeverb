@@ -4,7 +4,7 @@
   "description": "A Web Audio implementation of freeverb (Schroeder Reverberator)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/livejs/freeverb/issues"
   },
-  "homepage": "https://github.com/livejs/freeverb"
+  "homepage": "https://github.com/livejs/freeverb",
+  "devDependencies": {
+    "standard": "^8.1.0"
+  }
 }

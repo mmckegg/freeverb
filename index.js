@@ -7,7 +7,7 @@ var LowpassCombFilter = require('./lib/lowpass-comb-filter')
 
 module.exports = Freeverb
 
-function Freeverb(audioContext) {
+function Freeverb (audioContext) {
   var node = audioContext.createGain()
   node.channelCountMode = 'explicit'
   node.channelCount = 2
@@ -35,38 +35,38 @@ function Freeverb(audioContext) {
   var roomSize = 0.8
   var dampening = 3000
 
-  //make the allpass filters on the right
-  for (var l = 0; l < allpassFilterFrequencies.length; l++){
+  // make the allpass filters on the right
+  for (var l = 0; l < allpassFilterFrequencies.length; l++) {
     var allpassL = audioContext.createBiquadFilter()
     allpassL.type = 'allpass'
     allpassL.frequency.value = allpassFilterFrequencies[l]
     allpassFiltersL.push(allpassL)
 
-    if (allpassFiltersL[l-1]) {
-      allpassFiltersL[l-1].connect(allpassL)
+    if (allpassFiltersL[l - 1]) {
+      allpassFiltersL[l - 1].connect(allpassL)
     }
   }
 
-  //make the allpass filters on the left
-  for (var r = 0; r < allpassFilterFrequencies.length; r++){
+  // make the allpass filters on the left
+  for (var r = 0; r < allpassFilterFrequencies.length; r++) {
     var allpassR = audioContext.createBiquadFilter()
     allpassR.type = 'allpass'
     allpassR.frequency.value = allpassFilterFrequencies[r]
     allpassFiltersR.push(allpassR)
 
-    if (allpassFiltersR[r-1]) {
-      allpassFiltersR[r-1].connect(allpassR)
+    if (allpassFiltersR[r - 1]) {
+      allpassFiltersR[r - 1].connect(allpassR)
     }
   }
 
-  allpassFiltersL[allpassFiltersL.length-1].connect(merger, 0, 0)
-  allpassFiltersR[allpassFiltersR.length-1].connect(merger, 0, 1)
+  allpassFiltersL[allpassFiltersL.length - 1].connect(merger, 0, 0)
+  allpassFiltersR[allpassFiltersR.length - 1].connect(merger, 0, 1)
 
-  //make the comb filters
-  for (var c = 0; c < combFilterTunings.length; c++){
+  // make the comb filters
+  for (var c = 0; c < combFilterTunings.length; c++) {
     var lfpf = LowpassCombFilter(audioContext)
     lfpf.delayTime.value = combFilterTunings[c]
-    if (c < combFilterTunings.length / 2){
+    if (c < combFilterTunings.length / 2) {
       splitter.connect(lfpf, 0)
       lfpf.connect(allpassFiltersL[0])
     } else {
@@ -77,29 +77,29 @@ function Freeverb(audioContext) {
   }
 
   Object.defineProperties(node, {
-    roomSize: { 
-      get: function() {
+    roomSize: {
+      get: function () {
         return roomSize
-      }, 
-      set: function(value) {
+      },
+      set: function (value) {
         roomSize = value
         refreshFilters()
       }
     },
     dampening: {
-      get: function() {
+      get: function () {
         return dampening
       },
 
-      set: function(value) {
+      set: function (value) {
         dampening = value
         refreshFilters()
       }
     }
-  })  
+  })
 
   refreshFilters()
-  
+
   node.connect = output.connect.bind(output)
   node.wet = wet.gain
   node.dry = dry.gain
@@ -108,8 +108,8 @@ function Freeverb(audioContext) {
 
   // scoped
 
-  function refreshFilters() {
-    for (var i=0;i<combFilters.length;i++) {
+  function refreshFilters () {
+    for (var i = 0; i < combFilters.length; i++) {
       combFilters[i].resonance.value = roomSize
       combFilters[i].dampening.value = dampening
     }
