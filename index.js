@@ -104,6 +104,9 @@ function Freeverb (audioContext) {
   node.wet = wet.gain
   node.dry = dry.gain
 
+  // expose combFilters for direct automation
+  node.combFilters = combFilters
+
   return node
 
   // scoped
