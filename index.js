@@ -101,6 +101,7 @@ function Freeverb (audioContext) {
   refreshFilters()
 
   node.connect = output.connect.bind(output)
+  node.disconnect = output.disconnect.bind(output)
   node.wet = wet.gain
   node.dry = dry.gain
 
